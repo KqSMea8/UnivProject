@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>星辰大海</title>
+    <link rel="stylesheet" href="assets/css/libs/reset.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/libs/main.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/libs/jquery.mloading.css"/>
+    <style>
+		.nav{
+			background-color: #00a0e6;
+			z-index: 800;
+		}
+		.bg{
+			height: 100%;
+			width: 100%;
+			pointer-events: none; 
+		}
+		.btm-menu{
+			position: absolute;
+			bottom: 0;
+		    z-index: 800;
+		    height: 2.13rem;
+		    width: 100%;
+		    background-color: rgba(0, 0, 0, .3);
+		    opacity: 1;
+		    
+		}
+		.btm-menu button{
+			height: 100%;
+			width: 3.2rem;
+			background-color: transparent;
+			position: absolute;
+			z-index: 802;
+			border: none;
+			outline: none;
+		}
+		#shareBtn{
+			right: 0;
+		}
+		.btm-menu img{
+			position: absolute;
+			height: 1.28rem;
+			width: 1.28rem;
+			margin-top: 0.425rem;
+			z-index: 801;
+			pointer-events: none; 
+		}
+		#shareImg{
+			right: 0.96rem;
+		}
+		.play-pause{
+			position: absolute;
+			height: 2.56rem;
+			width: 2.56rem;
+			top: 45%;
+			margin-top: -1.28rem;
+			left: 50%;
+			margin-left: -1.28rem;
+			z-index: 701;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			user-select:none;
+		}
+		.play-pause img{
+			height: 100%;
+			width: 100%;
+			pointer-events: none; 
+		}
+		.play-pause button{
+			height: 100%;
+			width: 100%;
+			background-image: url(assets/image/play.png);
+			background-size: cover;
+			background-color: transparent;
+			border: none;
+			outline: none;
+		}
+		.share-menu{
+			display: none;
+			width: 100%;
+			height: 9.39rem;
+			background-color: #fff;
+			position: fixed;
+			bottom: 0;
+			border-top-left-radius: 0.213rem;
+			border-top-right-radius: 0.213rem;
+			z-index: 1000;
+		}
+		.share-menu .share-item{
+			width: 9.92rem;
+			height: 5.33rem;
+			padding: 1.92rem 3.04rem 0;
+			border-top-left-radius: 0.213rem;
+			border-top-right-radius: 0.213rem;
+		}
+		.share-menu .item{
+			height: 2.77rem;
+			width: 1.92rem;
+			float: left;
+			text-align: center;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			user-select:none;
+		}
+		.share-menu .item img{
+			height: 1.92rem;
+			width: 1.92rem;
+			pointer-events: none; 
+		}
+		.share-menu .item span{
+			display: block;
+			margin-top: 0.32rem;
+			font-size: 0.45rem;
+			color: #5f5f5f;
+		}
+		.share-menu .share-cancel{
+			height: 2.13rem;
+			width: 100%;
+			background-color: #e3e3e3;
+			text-align: center;
+			color: #363636;
+			font-size: 0.56rem;
+			line-height: 2.13rem;
+		}
+		#pauseBg{
+			z-index: 700;
+		}
+		a,button,input,textarea{
+			-webkit-tap-highlight-color: transparent;
+		}
+    </style>
+</head>
+
+<body style="height: 100%;">
+	<div class="nav" id="nav">
+		<span >录音播放</span>
+		<!--<img class="right-img" id="share" src="assets/image/share.png"/>-->
+	</div>
+	<audio id="audioPaly" src="assets/image/012002.mp3" onended="stopPlay();"></audio>
+	<div class="content" id="content">
+		<img class="bg" src="assets/image/bg.png"/>
+		<!--<div id="btmMenu" class="btm-menu">
+			<button id="shareBtn" onclick="share();"></button>
+			<img id="shareImg" src="assets/image/share.png"/>
+		</div>-->
+		<div id="playOPause" class="play-pause">
+			<img src="assets/image/play.png"/>
+		</div>
+		<div id="shareMenu" class="share-menu">
+			<div class="share-item">
+				<div class="item" id="shareToCircle">
+					<img src="assets/image/fricir.png"/>
+					<span >朋友圈</span>
+				</div>
+				<div class="item" style="float: right;" id="shareToFriend">
+					<img src="assets/image/wechat.png"/>
+					<span >好友</span>
+				</div>
+			</div>
+			<div id="shareCancel" class="share-cancel">
+				取消
+			</div>
+		</div>
+	</div>
+	<div id="pauseBg" class="backdrop"></div>
+	<div id="ajaxBg" class="backdrop"></div>
+<script src="assets/js/app.consts.js"></script>
+<script src="assets/js/libs/jquery-2.1.1.min.js"></script>
+<script src="assets/js/libs/yutil-1.0.0.js"></script>
+<script src="assets/js/libs/jquery.mloading.js"></script>
+<script src="assets/js/libs/cos-js-sdk-v5.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" charset="utf-8">
+    var bodyH = document.body.clientHeight;
+    var navH = document.getElementById("nav").clientHeight;
+    document.getElementById("content").style.height = bodyH-navH + "px";
+	var req = yTerminal.getSearch();
+	var play=true;
+    var cos;
+    var qrcodeId;
+	$(function(){
+        pauseHtml();
+		$("#shareMenu").hide();
+		$("#ajaxBg").hide();
+	    $("#playOPause").bind("click", function() {
+	    	var img = $(this).find("img");
+	    	var imgSrc = img.attr("src");
+            var audio = document.getElementById('audioPaly');
+	    	if(play && imgSrc=="assets/image/play.png"){
+                audio.pause();
+	    		pauseHtml();
+	    	}else{
+                audio.play();
+                playHtml();
+	    	}
+	   });
+        init();
+	});
+	function playHtml(){
+		play=true;
+		var img = $("#playOPause").find("img");
+	    img.attr("src","assets/image/play.png") ;
+	    $("#pauseBg").hide();
+	}
+	function pauseHtml(){
+		play=false;
+		var img = $("#playOPause").find("img");
+	    img.attr("src","assets/image/pause.png");
+	    $("#pauseBg").show();
+	}
+	function stopPlay(){
+        pauseHtml();
+	}
+    function init(){
+        $("body").mLoading("show");
+		$.ajax({
+            url: _SERVER_HOST + "/univ/audio/getListen",
+            type:"get",
+            success:function(data){
+                $("body").mLoading("hide");
+                if(yValidate.checkEmpty(data) || data.result!="success"){
+					alert("获取音频数据失败，请重新扫码");
+				}else{
+                    playHtml();
+                    var returnObj = data.returnObj;
+                    qrcodeId = returnObj.qrcodeId;
+                    getWechatData('data:audio/mp3;base64,'+returnObj.audio);
+				}
+            },
+            error:function(error){
+                $("body").mLoading("hide");
+                alert(error);
+            }
+        });
+    }
+    function getWechatData(audioSrc){
+        var type = yTerminal.agent();
+        if(type != _TYPE_WECHAT){
+		    alert("请在微信中打开");
+            document.body.innerHTML = '<div style="width 100%; height: 750px;line-height: 750px;text-align: center;">请在微信中打开</div>';
+			return;
+        }
+        $("body").mLoading("show");
+        $.ajax({
+            url:_SERVER_HOST + "/univ/audio/sign1/2",
+            type:"get",
+            success:function(data){
+                console.log(data);
+                $("body").mLoading("hide");
+                initWechat(data,audioSrc);
+            },
+            error:function(error){
+                $("body").mLoading("hide");
+                alert(error);
+            }
+        });
+    }
+    function initWechat(data,audioSrc){
+        var appId = data["appId"];
+        var timestamp = data["timestamp"];
+        var nonceStr = data["noncestr"];
+        var signature = data["signature"];
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: appId, // 必填，公众号的唯一标识
+            timestamp: timestamp, // 必填，生成签名的时间戳
+            nonceStr: nonceStr, // 必填，生成签名的随机串
+            signature: signature,// 必填，签名
+            jsApiList: ["startRecord","stopRecord","playVoice","pauseVoice","onVoicePlayEnd",
+                "uploadVoice","onVoiceRecordEnd","onMenuShareAppMessage","onMenuShareTimeline"] // 必填，需要使用的JS接口列表
+        });
+        wx.ready(function(){
+            var audio = document.getElementById('audioPaly');
+            audio.src=audioSrc;
+            audio.play();
+            wx.onMenuShareAppMessage({
+                title: '星辰大海',
+                desc: '我说，你听',
+                link: _SERVER_HOST + "/univ/user/getCode/"+qrcodeId,
+                imgUrl: 'assets/image/bg.png',
+                type: '',
+                dataUrl: '',
+                success: function () {
+
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: '星辰大海',
+                link: _SERVER_HOST + "/univ/user/getCode/"+qrcodeId,
+                imgUrl: 'assets/image/bg.png',
+                success: function () {
+
+                }
+            });
+        });
+        wx.error(function(res){
+            alert(res.errMsg);
+        });
+    }
+</script>
+</body>
+
+</html>

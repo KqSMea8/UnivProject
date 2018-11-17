@@ -1,0 +1,151 @@
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.nav {
+	height: 1.987rem;
+	background-color: #00ce96;
+	width: 100%;
+	position: relative;
+	color: #fff;
+}
+
+.nav .left-img {
+	height: 0.853rem;
+	margin-left: 0.64rem;
+	float: left;
+	margin-top: 0.567rem;
+}
+
+.nav .right-img {
+	height: 0.853rem;
+	position: absolute;
+	right:  0.64rem;
+	margin-top: 0.567rem;
+}
+.nav a{
+	display: inline-block;
+	height: 0.853rem;
+	width: 1rem;
+	position: absolute;
+	right:  0.64rem;
+	margin-top: 0.567rem;
+}
+.nav span{
+	display: inline-block;
+	line-height:  0.853rem;
+	font-size: 0.7rem;
+	width: 4.27rem;
+	font-weight: 400;
+	position: absolute;
+	text-align: center;
+	margin-left: 0.4rem;
+	margin-top: 0.567rem;
+}
+
+.select-car-num-span {
+	display: inline-block;
+	float: right;
+	height: 80px;
+	line-height: 80px;
+	font-size: 28px;
+	margin-right: 40px;
+	color: white;
+}
+.select-arrow-down{
+	float: right;
+    font-size: 30px;
+    color: #ffffff;
+    margin-top: 25px;
+    margin-right: 5px;
+}
+
+
+.have-no-data {
+	font-size: 34px;
+	color: #CCCCCC;
+	margin: 0 auto;
+	margin-top: 50%;
+	text-align: center;
+	width: 750px;
+}
+
+
+/*自定义弹出框*/
+
+.pop-bg {
+	height: 1218px;
+	width: 750px;
+	position: absolute;
+	top: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+	z-index: 100;
+}
+
+.backdrop {
+    position: fixed;
+    z-index: 900;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .3);
+    opacity: 1;
+}
+
+.pop-content {
+	/*height: 560px;*/
+	height: 650px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0px;
+	background-color: #ffffff;
+	z-index: 910;
+	-webkit-transition: .3s;
+	-webkit-transform: translateY(750px);
+}
+
+.pop-content-bank {
+	height: 100%;
+	width: 750px;
+	position: fixed;
+	bottom: 0;
+	background-color: #ffffff;
+	z-index: 910;
+	-webkit-transition: .3s;
+	-webkit-transform: translateY(100%);
+}
+
+.pop-right-in {
+	-webkit-transform: translateX(0);
+}
+
+.pop-right-out {
+	-webkit-transform: translateX(750px);
+}
+
+.pop-left-in {
+	-webkit-transform: translateX(0);
+}
+
+.pop-left-out {
+	-webkit-transform: translateX(-750px);
+}
+
+.pop-bottom-in {
+	-webkit-transform: translateY(0px);
+}
+
+.pop-bottom-out {
+	-webkit-transform: translateY(760px);
+}
+

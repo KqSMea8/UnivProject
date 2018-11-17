@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.univ.dao.AudioInfoMapper">
+  <resultMap id="AudioBaseResultMap" type="com.univ.domain.AudioInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="qrcode_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="audio_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="open_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_tm" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="attr1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="attr2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="attr3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="attr4" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Audio_Base_Column_List">
+    id, qrcode_id, audio_name, open_id,  create_tm, attr1, attr2, attr3, attr4
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="AudioBaseResultMap">
+    select 
+    <include refid="Audio_Base_Column_List" />
+    from tt_univ_audio_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tt_univ_audio_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.univ.domain.AudioInfo">
+    insert into tt_univ_audio_info (id, qrcode_id, audio_name,
+      create_tm, attr1, attr2, attr3, attr4)
+    values (#{id,jdbcType=INTEGER}, #{qrcodeId,jdbcType=VARCHAR}, #{audioName,jdbcType=VARCHAR},#{createTm,jdbcType=TIMESTAMP}
+    , #{attr1,jdbcType=VARCHAR}, #{attr2,jdbcType=VARCHAR} , #{attr3,jdbcType=VARCHAR}, #{attr4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.univ.domain.AudioInfo">
+    insert into tt_univ_audio_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="qrcodeId != null">
+        qrcode_id,
+      </if>
+      <if test="audioName != null">
+        audio_name,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="createTm != null">
+        create_tm,
+      </if>
+      <if test="attr1 != null">
+        attr1,
+      </if>
+      <if test="attr2 != null">
+        attr2,
+      </if>
+      <if test="attr3 != null">
+        attr3,
+      </if>
+      <if test="attr4 != null">
+        attr4
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qrcodeId != null">
+        #{qrcodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="audioName != null">
+        #{audioName,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null">
+        #{createTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTm != null">
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null">
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null">
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null">
+        #{attr4,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.univ.domain.AudioInfo">
+    update tt_univ_audio_info
+    <set>
+      <if test="qrcodeId != null">
+        qrcode_id = #{qrcodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="audioName != null">
+        audio_name = #{audioName,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null">
+        create_tm = #{createTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr1 != null">
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null">
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null">
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null">
+        attr4 = #{attr4,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.univ.domain.AudioInfo">
+    update tt_univ_audio_info
+    set qrcode_id = #{qrcodeId,jdbcType=VARCHAR},
+      audio_name = #{audioName,jdbcType=VARCHAR},
+      open_Id = #{openId,jdbcType=VARCHAR},
+      create_tm = #{createTm,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByQrcodeId" parameterType="java.lang.String" resultMap="AudioBaseResultMap">
+    select
+    <include refid="Audio_Base_Column_List" />
+    from tt_univ_audio_info
+    where qrcode_id = #{qrcodeId,jdbcType=VARCHAR}
+  </select>
+</mapper>

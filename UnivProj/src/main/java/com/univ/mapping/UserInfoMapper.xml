@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.univ.dao.UserInfoMapper" >
+  <resultMap id="UserBaseResultMap" type="com.univ.domain.UserInfo" >
+    <constructor >
+      <arg column="open_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_tm" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="attr1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="attr2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="attr3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="attr4" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.univ.domain.UserInfo" >
+    insert into ts_univ_user (open_id, create_tm, attr1, attr2, attr3, attr4)
+    values (#{openId,jdbcType=VARCHAR}, #{createTm,jdbcType=TIMESTAMP}, #{attr1,jdbcType=VARCHAR}, #{attr2,jdbcType=VARCHAR} , #{attr3,jdbcType=VARCHAR}, #{attr4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.univ.domain.UserInfo" >
+    insert into ts_univ_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="createTm != null" >
+        create_tm,
+      </if>
+      <if test="attr1 != null">
+        attr1,
+      </if>
+      <if test="attr2 != null">
+        attr2,
+      </if>
+      <if test="attr3 != null">
+        attr3,
+      </if>
+      <if test="attr4 != null">
+        attr4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null" >
+        #{createTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTm != null">
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null">
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null">
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null">
+        #{attr4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="getUser" parameterType="java.lang.String" resultMap="UserBaseResultMap">
+    select open_id, create_tm, attr1, attr2, attr3, attr4
+    from ts_univ_user
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </select>
+</mapper>

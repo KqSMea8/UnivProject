@@ -1,0 +1,42 @@
+
+/*弹出框样式修改*/
+.mui-popup{
+	width: 14.72rem;
+	height: 5.55rem;
+	font-size: 0.6rem;
+	border-radius:0.11rem
+}
+.mui-popup-inner{
+	padding: 0;
+	height: 3.63rem;
+	overflow: hidden;
+	border-radius: 0.11rem 0.11rem 0 0;
+}
+.mui-popup-button:first-child{
+	border-radius: 0 0 0 0.11rem;
+}
+.mui-popup-button:last-child{
+	border-radius: 0 0 0.11rem;
+}
+.mui-popup-buttons{
+	height: 1.92rem;
+}
+.mui-popup-button{
+	height: 1.92rem;
+	line-height: 1.92rem;
+	color: #565656;
+	font-size: 0.6rem;
+	padding: 0;
+}
+.mui-popup-button.mui-popup-button-bold{
+	color: #4497ff;
+}
+.mui-popup-title + .mui-popup-text{
+	margin: 0.53rem 0 0;
+	color: #b6b6b6;
+	font-size: 0.55rem;
+}
+.mui-popup-title{
+	margin-top: 0.853rem;
+	font-size:0.6rem
+}

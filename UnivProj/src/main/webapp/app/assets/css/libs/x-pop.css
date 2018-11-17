@@ -1,0 +1,76 @@
+
+.pop-content {
+	height: 13.87rem;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: #ffffff;
+	z-index: 910;
+	-webkit-transition: .3s;
+	-webkit-transform: translateY(16rem);
+}
+.pop-right-in {
+	-webkit-transform: translateX(0);
+}
+
+.pop-right-out {
+	-webkit-transform: translateX(16rem);
+}
+
+.pop-left-in {
+	-webkit-transform: translateX(0);
+}
+
+.pop-left-out {
+	-webkit-transform: translateX(-16rem);
+}
+
+.pop-bottom-in {
+	-webkit-transform: translateY(0);
+}
+
+.pop-bottom-out {
+	-webkit-transform: translateY(16.2rem);
+}
+
+
+.mui-android-5-1 .pop-content {
+	bottom: -16rem;
+	-webkit-transition-property: bottom;
+	-webkit-transform: none;
+}
+.mui-android-5-1 .pop-content.pop-bottom-in {
+	bottom: 0;
+	-webkit-transition-property: bottom;
+	-webkit-transform: none;
+}
+.mui-android-5-1 .pop-content.pop-bottom-out {
+	bottom: -16.2rem;
+	-webkit-transition-property: bottom;
+	-webkit-transform: none;
+}
+.mui-android-5-1 .pop-content.pop-right-in  {
+	right: 0;
+	bottom: 0;
+	-webkit-transition-property: right;
+	-webkit-transform: none;
+}
+.mui-android-5-1 .pop-content.pop-right-out  {
+	right: -16rem;
+	bottom: -16.2rem;
+	-webkit-transition-property: right;
+	-webkit-transform: none;
+}
+.mui-android-5-1 .pop-content.pop-left-in  {
+	left: 0;
+	bottom: 0;
+	-webkit-transition-property: left;
+	-webkit-transform: none;
+}
+.mui-android-5-1 .pop-content.pop-left-out  {
+	left: -16rem;
+	bottom: -16.2rem;
+	-webkit-transition-property: left;
+	-webkit-transform: none;
+}
